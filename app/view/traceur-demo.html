@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script><!--加载Traceur库文件 -->
+<script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script><!--用于浏览器环境 -->
+<script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script><!--用于浏览器环境 -->
+<script type="module">
+    /*type=model, Traceur识别ES6的标志,自动将ES6代码转化为ES5,然后给浏览器执行
+    该模块用于加载用户脚本*/
+    /*import './Greeter.js';*/
+    class Calc {
+        constructor() {
+            console.log('Calc constructor');
+        }
+        add(a, b) {
+            return a + b;
+        }
+    }
+
+    var c = new Calc();
+    console.log(c.add(4,5));
+</script>
+<body>
+
+</body>
+</html>
