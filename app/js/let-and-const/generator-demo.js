@@ -2,11 +2,11 @@
  * function 和函数名中间多一个*， 表示这个函数是Generator函数
  */
 
-function * generatorFun() {
+function* generatorFun() {
     var result1 = yield 'hello';
     console.log('result1: ' + result1);
     var result2 = yield 'world';
-    console.log('result2: ' + result2);
+    console.log('result1：' + result1 ,', result2: ' + result2);
     console.log(result1, result2);
     return result1 + result2;
 }
@@ -21,5 +21,8 @@ console.log('third execute:');
 console.log(gen.next(3));
 
 /**
- * next方法接受一个参数，该参数作为yield语句的返回值
+ * next方法接受一个参数，该参数作为上一次yield语句的返回值
  */
+// gen.next(1), yield 'hello' 返回 1 给result1
+// gen.next(2), 上一次的yield 'hello' 返回 2 给result1
+// gen.next(3), 上一次的yield 'world' 返回 3 给result2 ，之前result1 = 2， 所有最后return 5
