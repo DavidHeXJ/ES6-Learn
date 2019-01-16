@@ -173,5 +173,108 @@
 
 		Math.clz32() // 32
 		Math.clz32(NaN) // 32
+
+		// 左移运算符（<<）与Math.clz32方法直接相关
+		Math.clz32(0) // 32
+		Math.clz32(1) // 31
+		Math.clz32(1 << 1) // 30
+		Math.clz32(1 << 2) // 29
+		Math.clz32(1 << 29) // 2
 	}
+
+	/**
+	 * 5.Math.Imul()
+	 * Math.imul方法返回两个数以 32 位带符号整数形式相乘的结果，返回的也是一个 32 位的带符号整数
+	 */
+	{
+		//如果只考虑最后 32 位，大多数情况下，Math.imul(a, b)与a * b的结果是相同的
+		Math.imul(2, 4)   // 8
+		Math.imul(-1, 8)  // -8
+		Math.imul(-2, -2) // 4
+
+		/*
+		因为 JavaScript 有精度限制，超过 2 的 53 次方的值无法精确表示。
+		这就是说，对于那些很大的数的乘法，低位数值往往都是不精确的，Math.imul方法可以返回正确的低位数值。
+		 */
+		// (0x7fffffff * 0x7fffffff)|0 // 0
+
+		Math.imul(0x7fffffff, 0x7fffffff) // 1
+	}
+
+	//6. Math.fround方法返回一个数的32位单精度浮点数形式
+	{
+		//Math.fround方法的主要作用，是将64位双精度浮点数转为32位单精度浮点数。
+		//如果小数的精度超过24个二进制位，返回值就会不同于原值，否则返回值不变（即与64位双精度值一致）
+
+		// 未丢失有效精度
+		Math.fround(1.125) // 1.125
+		Math.fround(7.25)  // 7.25
+
+		// 丢失精度
+		Math.fround(0.3)   // 0.30000001192092896
+		Math.fround(0.7)   // 0.699999988079071
+		Math.fround(1.0000000123) // 1
+	}
+
+	//7. Math.hypot方法返回所有参数的平方和的平方根
+	{
+		console.log(Math.hypot(3,4)); //5
+		//Math.hypot方法会将其转为数值。只要有一个参数无法转为数值，就会返回 NaN
+		console.log(Math.hypot(NaN));//NaN
+	}
+
+	//8.对数方法
+	//8.1 Math.expm1()返回 ex - 1，即Math.exp(x) - 1
+	{
+		console.log(Math.expm1(0));// e**0 -1 //0
+		console.log(Math.exp(0)); // 1
+	}
+	//8.2 Math.log1p() 返回1 + x的自然对数（lnN），即Math.log(1 + x)。如果x小于-1，返回NaN
+	{
+		console.log(Math.log1p(0)); //0
+		console.log(Math.log(1));//0
+
+		console.log(Math.log1p(-1));//-Infinity
+		console.log(Math.log1p(-2));//NaN
+
+		console.log(Math.log(0));//-Infinity
+		console.log(Math.log(-1));//NaN
+
+	}
+	//8.3 Math.log10(x) 返回以 10 为底的x的对数。如果x小于 0，则返回 NaN
+	{
+		Math.log10(1)      // 0
+		Math.log10(0)      // -Infinity
+		Math.log10(-2)     // NaN
+		Math.log10(100000) // 5
+	}
+	//8.4 Math.log2(x) 返回以 2 为底的x的对数。如果x小于 0，则返回 NaN
+	{
+		Math.log2(3)       // 1.584962500721156
+		Math.log2(2)       // 1
+		Math.log2(1)       // 0
+		Math.log2(0)       // -Infinity
+		Math.log2(-2)      // NaN
+		Math.log2(1024)    // 10
+		Math.log2(1 << 29) // 29
+	}
+}
+
+/**
+ *8. ES2016 新增了一个指数运算符（**）
+ */
+{
+	console.log(2 ** 2);
+
+	// ** 特点是右结合，多个指数运算符连用时，是从最右边开始计算的
+	console.log(2 ** 2 ** 3);// 2 ** (2 **3);// 2 ** 6
+
+	//数运算符可以与等号结合，形成一个新的赋值运算符（**=）
+	let a = 1.5;
+	console.log(a **= 2);
+	// 等同于 a = a * a;
+
+	let b = 4;
+	b **= 3;
+	// 等同于 b = b * b * b;
 }
